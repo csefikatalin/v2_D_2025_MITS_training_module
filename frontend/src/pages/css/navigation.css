@@ -1,0 +1,46 @@
+header {
+  border: 2px solid rgb(72, 70, 70);;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px ;
+  
+  max-width: 1200px;
+  margin: 0 auto 0 auto;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin:0;
+  display: flex;
+  gap:10px;
+}
+
+.active{
+ border: 2px solid rgb(72, 70, 70);
+ background-color: lightgrey;
+}
+nav ul li a {
+    padding:5px 10px; 
+    text-decoration: none;
+    color: rgb(72, 70, 70);
+    font-variant: small-caps;
+}
+.kiemelt {
+    border: 2px solid rgb(72, 70, 70);
+ padding:2px 10px; 
+ margin:0;
+
+}
+
+@media screen and (max-width:800px) {
+  nav {
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  align-content: center;
+  
+}
+
+}

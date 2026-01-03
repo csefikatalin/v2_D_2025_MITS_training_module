@@ -1,0 +1,27 @@
+.login {
+    max-width:300px;
+    margin:auto;
+    padding:20px;
+    border:2px solid gray;
+
+}
+.login form div {
+    display:flex;
+    flex-direction:column;
+    padding:10px;
+    gap:5px;
+}
+input {
+    width:100%;
+    padding:5px;
+    background-color: white;
+}
+.szoveg {
+    text-align:center;
+}
+.login a{
+    color:gray;
+}
+.error-text , .alert, .alert-error{
+    color:red;
+}
