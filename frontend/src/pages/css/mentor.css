@@ -1,0 +1,40 @@
+.mentor-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  text-align: center;
+  font-variant: small-caps;
+}
+.mentor-container > div {
+  padding: 5px;
+  background-color: rgb(236, 234, 234);
+}
+.mentor-container > div > p {
+  padding: 5px;
+  margin: 0;
+}
+
+.button :first-child {
+  font-size: 1.2em;
+  padding: 3px 10px;
+}
+.button:last-child button {
+  font-size: 0.8em;
+}
+
+.pending-button, .available-button{
+    background-color: rgb(241, 233, 215);
+    border:1px solid rgb(194, 190, 167)
+}
+.rejected-button{
+    background-color: rgb(236, 213, 224);
+    border:1px solid rgb(124, 98, 114)
+}
+.confirmed-button, .booked-button{
+    background-color: rgb(190, 221, 192);
+    border:1px solid rgb(21, 75, 30)
+}
+.canceled-button {
+    background-color: rgb(233, 165, 76);
+    border:1px solid rgb(99, 61, 18)
+}

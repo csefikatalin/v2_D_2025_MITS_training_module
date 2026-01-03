@@ -8,6 +8,7 @@ import CoursesPage from "./pages/CoursesPage";
 import MentorsPage from "./pages/MentorsPage";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import CourseDetailsPage from "./pages/CourseDetailsPage";
 function App() {
   const router = createBrowserRouter([
     {
@@ -31,8 +32,21 @@ function App() {
           element: <DashboardPage />,
         },
         {
-          path: "/courses",
-          element: <CoursesPage />,
+          path: "courses",
+          children: [
+            {
+              index: true,
+              element: <CoursesPage />,
+            },
+            {
+              path: ":id",
+              element: <CourseDetailsPage />,
+            },
+          ],
+        },
+        {
+          path: "/courses/{id}",
+          element: <CourseDetailsPage />,
         },
         {
           path: "/mentors",

@@ -1,0 +1,76 @@
+.course {
+  padding: 10px;
+  display: grid;
+  grid-template-rows: 80px auto 80px 40px;
+  gap: 5px;
+}
+
+.courses {
+  margin-top: 10px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 10px;
+}
+.course-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.courseone * {
+  margin: 10px;
+}
+.course .header {
+display: flex;
+justify-content: space-between;
+}
+.course button {
+  cursor:pointer;
+}
+
+.szuro {
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+  gap:10px;
+}
+
+select {
+  padding:5px 10px;
+}
+.progress {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-variant: small-caps;
+  text-align: center;
+}
+
+.progress > div {
+  flex: 1 1 45%;
+  padding: 10px;
+}
+h3 {
+  color: gray;
+  font-weight: 300;
+}
+p {
+  font-weight: bold;
+}
+.progress-container {
+  height: 25px;
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 12px;
+  margin:0;
+  overflow:hidden;
+}
+.progressbar {
+    width:100%;
+    height: 100%;
+    margin:0;
+    padding:0;
+
+}

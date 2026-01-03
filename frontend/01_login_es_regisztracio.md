@@ -2,9 +2,20 @@
 
 A formok alján át lehet navigálni a RegistrationPage / LoginPage oldalra. Használd a NavLink - et!
 
+<img src="../assets/wireframes/02-registration.png" alt="login minta">
+
 Formázáshoz külön login.css-t készíts!
 
 Teszteld a böngészőben, hogy elérhetőek-e az oldalak! pl.:http://localhost:3000/register
+
+### Ne feledd: 
+
+- A formoknak saját state-jük van!
+- Az űrlapelemek value értékemindig a state
+- Ne feldd onChange eseményben frissíteni a value értékét!
+- A Submit gomb eseménykezelőjét a form tagbe kell tenni!
+- Használd az input elemeknél az on
+
 
 ## Form validáció és hibakezelés
 
@@ -14,7 +25,7 @@ A Login és a Regisztrációs űrlapoknál adjunk hibaüzenetet, ha nem megfelel
 ```javascript
  const [errors, setErrors] = useState({});
 ```
-2. errostext elem létrehozása minden űrlapelem alatt. pl:
+2. errortext elem létrehozása minden űrlapelem alatt. pl:
 ```javascript
  {errors.password && (
     <span className="error-text">{errors.password}</span>

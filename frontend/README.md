@@ -32,6 +32,8 @@ src/
 
 ## Layout és a navigáció kialakítása
 
+<img src="../assets/wireframes/03-dashboard.png" alt="dashboard">
+
 1. navigáció: a-tag helyett NavLink to
 2. Layout - a Navigation komponens kerüljön pl a header-be, **Outlet** kerüljön a **main**-be
 3. App.js- createBrowserRouter és a RouterProvider használata
