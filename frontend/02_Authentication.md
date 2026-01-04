@@ -225,9 +225,9 @@ function submit(event) {
 }
 ```
 
-4. A RegistrationPage hasonló módon oldaható meg.
+4. A RegistrationPage hasonló módon oldaható meg. Itt a regisztráció után a login oldalra kell navigálni, mivel a register végpont nem adja vissz aaz autentikációs tokent. Azt csak a bejelentkezés után kapjuk meg. 
 
-Ha eddig mindent jól csináltál, akkor az oldal kezdetben csak a  login formot mutatja. Átlépve a regisztrációra, beregisztrálsz, majd megjelennek dashboard, stb menüpontok, amiket a Layout meghatároz. 
+Ha eddig mindent jól csináltál, akkor az oldal kezdetben csak a  login formot mutatja. Átlépve a regisztrációra, beregisztrálsz, majd átirányít a login oldalra. Bejelntekezés után megjelennek  a Layoutban meghatározott menüpontok és oldalak.  
 Ellenőrizd, hogy a böngészőben az Application fülön a localstorage-ban megjelent a token. 
 
 ### Felhasználó adatainak megjelenítése
