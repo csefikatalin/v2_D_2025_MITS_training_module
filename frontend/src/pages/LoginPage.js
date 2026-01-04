@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router";
 import "./css/login.css";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("a@a.hu");
-  const [password, setPassWord] = useState("123456");
+  const [email, setEmail] = useState("c@c.hu");
+  const [password, setPassWord] = useState("Aa123456");
   const [errors, setErrors] = useState({});
+  const {login}=useContext(AuthContext)
 
   function validateForm() {
     const newErrors = {};
@@ -27,9 +29,14 @@ export default function LoginPage() {
   }
   function submit(event) {
     event.preventDefault();
-    setErrors(validateForm());
-    const user={email, password}
-    console.log(user)
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    const user = { email, password };
+    console.log(user);
+    login(user)
   }
 
   return (

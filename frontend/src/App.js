@@ -1,4 +1,3 @@
-
 import "./App.css";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import Layout from "./pages/Layout";
@@ -9,6 +8,8 @@ import MentorsPage from "./pages/MentorsPage";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import CourseDetailsPage from "./pages/CourseDetailsPage";
+import { AuthProvider } from "./contexts/AuthContext";
+import authMiddleware from "./middleware/autMiddleware";
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ function App() {
     {
       path: "/",
       element: <Layout />,
+      middleware: [authMiddleware],
       children: [
         {
           index: true,
@@ -59,7 +61,11 @@ function App() {
       element: <NoPage />,
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;

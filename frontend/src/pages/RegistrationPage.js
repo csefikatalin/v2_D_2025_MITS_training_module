@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import "./css/login.css";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function RegistrationPage() {
   const [name, setName] = useState("");
@@ -8,6 +9,7 @@ export default function RegistrationPage() {
   const [password, setPassWord] = useState("");
   const [cpassword, setCPassWord] = useState("");
   const [errors, setErrors] = useState({});
+   const {register}=useContext(AuthContext)
   const navigate = useNavigate();
 
   function validateForm() {
@@ -37,11 +39,17 @@ export default function RegistrationPage() {
 
     return newErrors;
   }
+
   function submit(event) {
     event.preventDefault();
-    setErrors(validateForm());
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     const user = { name, email, password, cpassword };
     console.log(user);
+    register(user);
   }
   return (
     <div className="login">
@@ -52,6 +60,7 @@ export default function RegistrationPage() {
           <input
             type="text"
             value={name}
+            autoComplete="name"
             placeholder="Enter your full name"
             onChange={(e) => {
               setName(e.target.value);
@@ -78,6 +87,7 @@ export default function RegistrationPage() {
           <input
             type="password"
             value={password}
+            autoComplete="password"
             placeholder="Enter your password"
             onChange={(e) => {
               setPassWord(e.target.value);
@@ -92,7 +102,7 @@ export default function RegistrationPage() {
           <label htmlFor="cpassword">CONFIRM PASSWORD</label>
           <input
             type="password"
-            autocomplete="cpassword"
+            autoComplete="cpassword"
             value={cpassword}
             placeholder="Confirm your password"
             onChange={(e) => {

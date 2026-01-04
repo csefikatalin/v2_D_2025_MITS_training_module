@@ -38,14 +38,16 @@ A middleware egy függvény, amely:
 - Több route-ra is alkalmazható
 
 
-Jelen pillanatban minden menüpont elérhető bármelyik felhasználnak. De a menüpontokat védhetjük is, úgy, hogy bizonyos menüpontokat csak bizonyos felhasználók láthassanak. Ehhez létre kell hoznunk egy middleware fájlt.
+Jelen pillanatban minden menüpont elérhető bármelyik felhasználónak. De a menüpontokat védhetjük is úgy, hogy bizonyos menüpontokat csak bizonyos felhasználók láthassanak. Ehhez létre kell hoznunk egy middleware fájlt.
 
 Az autMiddlewaret loaderként használjuk.
 A **loader** egy olyan függvény a React Routerben, amely az adott útvonal betöltése előtt fut le, és eldöntheti, hogy az oldal renderelődjön-e, illetve adatot tölthet be hozzá.
 
+```txt
 src/
 └── middleware/
 └── authMiddleware.js
+```
 
 Az autMiddleware fájl tartalma:
 
@@ -85,11 +87,11 @@ Azután az Api.js-ben be kell állítanuk a védett menüpontokra a védelmet.
 
 **Middleware előnyei:**
 
-✅ **Központosított logika:** Egy helyen van a hitelesítési ellenőrzés
-✅ **Tisztább kód:** Nincs szükség wrapper komponensekre
-✅ **Futási sorrend:** Lefut a komponens renderelése előtt
-✅ **Újrafelhasználható:** Több route-ra is alkalmazható
-✅ **Láncolható:** Több middleware is használható egyszerre
+- **Központosított logika:** Egy helyen van a hitelesítési ellenőrzés
+- **Tisztább kód:** Nincs szükség wrapper komponensekre
+- **Futási sorrend:** Lefut a komponens renderelése előtt
+- **Újrafelhasználható:** Több route-ra is alkalmazható
+- **Láncolható:** Több middleware is használható egyszerre
 
 **Middleware működése:**
 
@@ -150,7 +152,7 @@ Az api.js tartalma:
 ```javascript
 import axios from "axios";
 
-Létrehozok egy saját axios példányt, a továbbiakban ezt használom az api hívásoknál, így az alapértelmezett header és végpont információkat tartalmazza.
+//Létrehozok egy saját axios példányt, a továbbiakban ezt használom az api hívásoknál, így az alapértelmezett header és végpont információkat tartalmazza.
 
 const myAxios = axios.create({
   baseURL: "http://localhost:5000/api/v1",
@@ -224,6 +226,9 @@ function submit(event) {
 ```
 
 4. A RegistrationPage hasonló módon oldaható meg.
+
+Ha eddig mindent jól csináltál, akkor az oldal kezdetben csak a  login formot mutatja. Átlépve a regisztrációra, beregisztrálsz, majd megjelennek dashboard, stb menüpontok, amiket a Layout meghatároz. 
+Ellenőrizd, hogy a böngészőben az Application fülön a localstorage-ban megjelent a token. 
 
 ### Felhasználó adatainak megjelenítése
 
@@ -359,7 +364,7 @@ function hibakezeles(error) {
 }
 ```
 
-2. Ezt a függvényt aza API hívások catch ágában hívhatjuk!
+2. Ezt a függvényt az API hívások catch ágában hívhatjuk!
 
 3. pl a login oldalon felhasználhatjuk a serverError értékét a hiba jelzésére.
 
