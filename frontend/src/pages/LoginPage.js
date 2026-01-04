@@ -7,7 +7,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("c@c.hu");
   const [password, setPassWord] = useState("Aa123456");
   const [errors, setErrors] = useState({});
-  const {login}=useContext(AuthContext)
+  const { login, serverError } = useContext(AuthContext);
 
   function validateForm() {
     const newErrors = {};
@@ -36,7 +36,7 @@ export default function LoginPage() {
     }
     const user = { email, password };
     console.log(user);
-    login(user)
+    login(user);
   }
 
   return (
@@ -44,6 +44,7 @@ export default function LoginPage() {
       <h1>WELCOME BACK</h1>
 
       <form onSubmit={submit}>
+        {serverError && <div className="alert-error">{serverError}</div>}
         <div>
           <label htmlFor="email">EMAIL ADDRESS</label>
           <input

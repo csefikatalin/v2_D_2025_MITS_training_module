@@ -37,7 +37,6 @@ A middleware egy függvény, amely:
 - Átirányíthat más route-ra (pl. login oldalra)
 - Több route-ra is alkalmazható
 
-
 Jelen pillanatban minden menüpont elérhető bármelyik felhasználónak. De a menüpontokat védhetjük is úgy, hogy bizonyos menüpontokat csak bizonyos felhasználók láthassanak. Ehhez létre kell hoznunk egy middleware fájlt.
 
 Az autMiddlewaret loaderként használjuk.
@@ -162,14 +161,14 @@ const myAxios = axios.create({
   },
 });
 
-  /* minden kérésnél a header-hez hozzá kell tenni a tokent.  */
- export  function getAuthHeaders() {
-    const token = localStorage.getItem("token");
-    return {
-      "X-API-TOKEN": token,
-      "Content-Type": "application/json",
-    };
-  }
+/* minden kérésnél a header-hez hozzá kell tenni a tokent.  */
+export function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  return {
+    "X-API-TOKEN": token,
+    "Content-Type": "application/json",
+  };
+}
 ```
 
 ### AuthContext függvényei
@@ -225,10 +224,10 @@ function submit(event) {
 }
 ```
 
-4. A RegistrationPage hasonló módon oldaható meg. Itt a regisztráció után a login oldalra kell navigálni, mivel a register végpont nem adja vissz aaz autentikációs tokent. Azt csak a bejelentkezés után kapjuk meg. 
+4. A RegistrationPage hasonló módon oldaható meg. Itt a regisztráció után a login oldalra kell navigálni, mivel a register végpont nem adja vissz aaz autentikációs tokent. Azt csak a bejelentkezés után kapjuk meg.
 
-Ha eddig mindent jól csináltál, akkor az oldal kezdetben csak a  login formot mutatja. Átlépve a regisztrációra, beregisztrálsz, majd átirányít a login oldalra. Bejelntekezés után megjelennek  a Layoutban meghatározott menüpontok és oldalak.  
-Ellenőrizd, hogy a böngészőben az Application fülön a localstorage-ban megjelent a token. 
+Ha eddig mindent jól csináltál, akkor az oldal kezdetben csak a login formot mutatja. Átlépve a regisztrációra, beregisztrálsz, majd átirányít a login oldalra. Bejelntekezés után megjelennek a Layoutban meghatározott menüpontok és oldalak.  
+Ellenőrizd, hogy a böngészőben az Application fülön a localstorage-ban megjelent a token.
 
 ### Felhasználó adatainak megjelenítése
 
@@ -322,56 +321,48 @@ Az API különböző hibákat adhat vissza működés során. A frontendnek keze
 - 401 Unauthorized – A hitelesítési token érvénytelen vagy lejárt. A felhasználót át kell irányítani a bejelentkezési oldalra.
 - 403 Forbidden – A felhasználónak nincs jogosultsága a kért művelethez. A felhasználót értesíteni kell a hiányzó jogosultságokról.
 - 404 Not Found – A kért erőforrás nem található. A felhasználót értesíteni kell, hogy a tartalom nem elérhető.
-- 422 Unprocessable Entity – Validációs hibák történtek. Meg kell jeleníteni a specifikus mező hibát, hogy a felhaszunáló javítani tudja.
+- 422 Unprocessable Entity – Validációs hibák történtek. Meg kell jeleníteni a specifikus mező hibát, hogy a felhasználó javítani tudja.
 - 500 Internal Server Error – Szerver hiba történt. A felhasználót értesíteni kell egy ideiglenes rendszerhibáról.
 
 A **serverError** state-ben fogjuk tárolni a hibaüzeneteket.
 
-1. Hibakezeles foggvény az AuthContext-ben
+const [serverError, setServerError] = useState(true);
+
+1. Hibakezeles függvény az AuthContext-ben
 
 ```javascript
 function hibakezeles(error) {
   if (error.status === 400) {
     setServerError("A megadott adatok nem szerepelnek az adatbázisban");
-    throw new Error("A megadott adatok nem szerepelnek az adatbázisban");
-  }
-  if (error.status === 401) {
+  } else if (error.status === 401) {
     setServerError(
       "A hitelesítési token érvénytelen vagy lejárt. Menj a login oldalra!"
     );
-    throw new Error(
-      "A hitelesítési token érvénytelen vagy lejárt. Menj a login oldalra!"
-    );
     window.location.href = "/login";
-  }
-  if (error.status === 403) {
-    setServerError("Nincs jogosultsága kért művelethez!");
-    throw new Error("Nincs jogosultsága kért művelethez!");
-  }
-  if (error.status === 404) {
+  } else if (error.status === 403) {
+    setServerError("Nincs jogosultsága a kért művelethez!");
+  } else if (error.status === 404) {
     setServerError("A kért erőforrás nem található!");
-    throw new Error("A kért erőforrás nem található!");
-  }
-
-  if (error.status === 422) {
+  } else if (error.status === 422) {
     setServerError("Validációs hiba");
-    throw new Error(error.message || "Validációs hiba");
-  }
-  if (error.status === 500) {
+  } else if (error.status === 500) {
     setServerError("Szerver hiba történt.");
-    throw new Error(error.message || "Szerver hiba történt.");
+  } else {
+    setServerError("Ismeretlen hiba történt.");
   }
 }
 ```
+
+Ne felejtsd el a value-ban átadni a serverError változót.
 
 2. Ezt a függvényt az API hívások catch ágában hívhatjuk!
 
 3. pl a login oldalon felhasználhatjuk a serverError értékét a hiba jelzésére.
 
+A serverError változót használd a contextben!
+
 ```javascript
 {
-    serverError && <div className="alert-error">{serverError}</div>;
+  serverError && <div className="alert-error">{serverError}</div>;
 }
 ```
-
-

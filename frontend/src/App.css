@@ -44,3 +44,6 @@ button {
   color: rgb(211, 217, 219);
   border: 1px solid lightgrey;
 }
+.alert-error {
+  color:red;
+}

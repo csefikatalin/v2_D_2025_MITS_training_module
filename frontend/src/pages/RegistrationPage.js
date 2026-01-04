@@ -9,7 +9,7 @@ export default function RegistrationPage() {
   const [password, setPassWord] = useState("");
   const [cpassword, setCPassWord] = useState("");
   const [errors, setErrors] = useState({});
-   const {register}=useContext(AuthContext)
+   const {register, serverError}=useContext(AuthContext)
   const navigate = useNavigate();
 
   function validateForm() {
@@ -55,6 +55,7 @@ export default function RegistrationPage() {
     <div className="login">
       <h1>CREATE ACCOUNT</h1>
       <form onSubmit={submit}>
+            {serverError && <div className="alert-error">{serverError}</div>}
         <div>
           <label htmlFor="name">FULL NAME</label>
           <input

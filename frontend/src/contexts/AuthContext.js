@@ -9,6 +9,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [serverError, setServerError] = useState(true);
 
   function login(adat) {
     setLoading(true);
@@ -28,6 +29,7 @@ export function AuthProvider({ children }) {
       .catch(function (error) {
         // handle error
         console.log(error);
+        hibakezeles(error)
       })
       .finally(function () {
         // always executed
@@ -40,13 +42,13 @@ export function AuthProvider({ children }) {
     myAxios
       .post("/users/register", adat)
       .then(function (response) {
-       
         /* Átnavigálunk a login oldalra */
         window.location.href = "/login";
       })
       .catch(function (error) {
         // handle error
         console.log(error);
+        hibakezeles(error)
       })
       .finally(function () {
         // always executed
@@ -86,16 +88,38 @@ a fejléchez mindenképp csatolni kell a tokent. Erre szolgál a getAuthHeaders 
   }
 
   function logout() {
-  /* kijelentkezéskor nullára állítjuka  tokent és a felhasználót. */
-  setUser(null);
-  setToken(null);
-  /* töröljük a tokent a localstorage-ból */
-  localStorage.removeItem("token");
-  /* Újratöltjük az oldalt */
-  window.location.reload();
-}
+    /* kijelentkezéskor nullára állítjuka  tokent és a felhasználót. */
+    setUser(null);
+    setToken(null);
+    /* töröljük a tokent a localstorage-ból */
+    localStorage.removeItem("token");
+    /* Újratöltjük az oldalt */
+    window.location.reload();
+  }
+
+  function hibakezeles(error) {
+    if (error.status === 400) {
+      setServerError("A megadott adatok nem szerepelnek az adatbázisban");
+    } else if (error.status === 401) {
+      setServerError(
+        "A hitelesítési token érvénytelen vagy lejárt. Vagy A megadott adatok nem szerepelnek az adatbázisban. Menj a login oldalra!"
+      );
+      //window.location.href = "/login";
+    } else if (error.status === 403) {
+      setServerError("Nincs jogosultsága a kért művelethez!");
+    } else if (error.status === 404) {
+      setServerError("A kért erőforrás nem található!");
+    } else if (error.status === 422) {
+      setServerError("Validációs hiba");
+    } else if (error.status === 500) {
+      setServerError("Szerver hiba történt.");
+    } else {
+      setServerError("Ismeretlen hiba történt.");
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ login, register, loading, user, logout }}>
+    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError }}>
       {children}
     </AuthContext.Provider>
   );
