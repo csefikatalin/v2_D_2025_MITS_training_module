@@ -31,9 +31,9 @@ export default function Navigation() {
         </ul>
         <ul>
           <li className="kiemelt">
-            {user.creditBalance ? user.creditBalance : "0"} credits
+            {user.user.creditBalance ? user.user.creditBalance : "0"} credits
           </li>
-          <li>Welcome {user.name ? user.name : "Guest"}</li>
+          <li>Welcome {user.user.name ? user.user.name : "Guest"}</li>
           <li className="kiemelt" onClick={logout}>
             Logout
           </li>

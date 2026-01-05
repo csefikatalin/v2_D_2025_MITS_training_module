@@ -75,12 +75,12 @@ a fejléchez mindenképp csatolni kell a tokent. Erre szolgál a getAuthHeaders 
     myAxios
       .get("/users/me", { headers: getAuthHeaders() })
       .then((response) => {
-        setUser(response.data.user); //  beállítjuk a user-t
+        setUser(response.data); //  beállítjuk a user-t
       })
       .catch((error) => {
         console.log(error);
         setUser(null); // ha hiba, töröljük a user-t
-        //localStorage.removeItem("token"); // ha invalid token
+        localStorage.removeItem("token"); // ha invalid token
       })
       .finally(() => {
         setLoading(false); //  loading vége, user betöltve
@@ -119,7 +119,7 @@ a fejléchez mindenképp csatolni kell a tokent. Erre szolgál a getAuthHeaders 
   }
 
   return (
-    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError }}>
+    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError, loadUser }}>
       {children}
     </AuthContext.Provider>
   );

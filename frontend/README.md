@@ -119,8 +119,26 @@ Külön navigation.css-t készíts!
 
 # 1. Login és regisztrációs űrlapok
 
-<a href="01_login_es_regisztracio.md.md">Autentikáció megvalósítása context segítségével</a>
+<a href="01_login_es_regisztracio.md">Login és regisztrációs formok elkészítése validációval</a>
 
-# 2. Autentikáció és bejelentkezés
+# 2. Oldalak drótvázai
 
-<a href="02_Authentication.md">Autentikáció megvalósítása context segítségével</a>
+<a href="01_oldalak_wireframe.md">Az egyes oldalak vázának elkészítése (pages és components)</a>
+
+# 3. Autentikáció és bejelentkezés
+
+<a href="02_Authentication.md">Login és regisztráció, autentikáció megvalósítása context segítségével</a>
+
+# 4. Dashboard elkésztése,  Chart.js használata
+
+<a href="03_dashboard.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
+
+# 5. Courses és a CourseDetailspage
+
+# 7. MentorsPage és a BookedSessionPage
+
+# 8. LinkedIn beillesztése
+
+# 9. Polling
+
+
