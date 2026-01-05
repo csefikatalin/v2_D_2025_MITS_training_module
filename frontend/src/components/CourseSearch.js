@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-
+import { CoursesContext } from "../contexts/CoursesContext";
 
 export default function CourseSearch() {
-  
   const [search, setSearch] = useState("");
   const [difficulties, setDifficulties] = useState("all");
 
-  useEffect(() => {
+  const { szuro } = useContext(CoursesContext);
 
-    /*szuro( difficulties,search);*/
-  }, [ difficulties,search]);
+  useEffect(() => {
+    szuro(difficulties, search);
+  }, [difficulties, search]);
 
   return (
     <div className="p-3 keret">

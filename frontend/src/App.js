@@ -10,6 +10,7 @@ import RegistrationPage from "./pages/RegistrationPage";
 import CourseDetailsPage from "./pages/CourseDetailsPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import authMiddleware from "./middleware/autMiddleware";
+import { CoursesProvider } from "./contexts/CoursesContext";
 function App() {
   const router = createBrowserRouter([
     {
@@ -63,7 +64,9 @@ function App() {
   ]);
   return (
     <AuthProvider>
+      <CoursesProvider>
       <RouterProvider router={router} />
+      </CoursesProvider>
     </AuthProvider>
   );
 }
