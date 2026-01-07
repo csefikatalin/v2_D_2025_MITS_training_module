@@ -18,7 +18,7 @@ export default function CoursesPage() {
         <CourseSearch />{" "}
         <div className="courses ">
           Betöltés folyamatban, vagy nincs kurzus!
-          <Course course={{}} />
+       
         </div>
       </>
     );

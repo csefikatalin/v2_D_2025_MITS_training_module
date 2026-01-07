@@ -135,7 +135,11 @@ Külön navigation.css-t készíts!
 
 # 5. Courses és a CourseDetailspage
 
+<a href="04_courses.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
+
 # 7. MentorsPage és a BookedSessionPage
+
+<a href="05_mentor.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
 
 # 8. LinkedIn beillesztése
 
