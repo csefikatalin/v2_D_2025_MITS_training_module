@@ -8,6 +8,8 @@ export const MentorContext = createContext();
 export function MentorProvider({ children }) {
   const [mentorList, setMentorList] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+
 
   function getMentor() {
     setLoading(true);
@@ -26,16 +28,16 @@ export function MentorProvider({ children }) {
 
 function bookedSession(id){
  setLoading(true)
-    myAxios.post(
+  return  myAxios.post(
       `/mentors/sessions/${id}/book`,{},
       {
         headers: getAuthHeaders(),
       }
     )
     .then((response)=>{
-      console.log(response)
+      return response;
     })
-    .catch((error)=>{console.log(error)})
+    .catch((error)=>{throw error;})
     .finally(()=>{setLoading(false)});
 }
 

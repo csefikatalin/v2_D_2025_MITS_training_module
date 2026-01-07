@@ -137,12 +137,16 @@ Külön navigation.css-t készíts!
 
 <a href="04_courses.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
 
-# 7. MentorsPage és a BookedSessionPage
+# 7. MentorsPage 
 
-<a href="05_mentor.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
+<a href="05_mentor.md">MentorsPage, MentorContext és a Mentor komponens, mentor.css elkészítése</a>
 
-# 8. LinkedIn beillesztése
+# 8. BookedSessionPage
 
-# 9. Polling
+<a href="06_bookedSessionPage.md">BookedSessionPage, BookedSession komponens és egy saját hook (usePolling) elkészítése a polling megvalósítására.  </a>
+
+# 9. LinkedIn beillesztése
+
+
 
 

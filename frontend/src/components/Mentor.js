@@ -1,16 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../pages/css/mentor.css";
 import { MentorContext } from "../contexts/MentorContext";
 import { useNavigate } from "react-router";
 
-
-
 export default function Mentor({ mentor }) {
-  const navigate = useNavigate();
-
   const { bookedSession } = useContext(MentorContext);
 
-  function sessionBooked() {}
+  const navigate = useNavigate();
+
+  function sessionBooked() {
+    bookedSession(mentor.id)
+      .then((resp) => {
+   
+        navigate(`/bookedsession`);
+      })
+      .catch((error) => {
+        if (error.response?.status === 403) {
+          alert("Insufficient credits to book this session");
+        } else {
+          console.error(error);
+        }
+      });
+  }
+
+
+
   if (!mentor) {
     return (
       <div className="sessions keret padding">
@@ -64,8 +78,14 @@ export default function Mentor({ mentor }) {
       </div>
 
       <div className="button">
-        <button className={`keret session ${mentor.isAvailable?"available-button":"inactive"}  `} onClick={sessionBooked} disabled={!mentor.isAvailable} >
-         {mentor.isAvailable?"Available":"Not available"} 
+        <button
+          className={`keret session ${
+            mentor.isAvailable ? "available-button" : "inactive"
+          }  `}
+          onClick={sessionBooked}
+          disabled={!mentor.isAvailable}
+        >
+          {mentor.isAvailable ? "Available" : "Not available"}
         </button>
       </div>
     </div>
