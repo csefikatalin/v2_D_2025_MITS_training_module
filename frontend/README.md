@@ -147,6 +147,7 @@ Külön navigation.css-t készíts!
 
 # 9. LinkedIn beillesztése
 
+<a href="07_linkedin.md">LinkedIn post készítése </a>
 
 
 

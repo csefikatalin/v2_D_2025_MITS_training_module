@@ -29,6 +29,16 @@ export default function CourseDetailsPage() {
     }
   }, [selectedCourse]);
 
+ useEffect(() => {
+    if (window.LinkedInShare) {
+      window.LinkedInShare.init({
+        container: "#linkedin-share-root",
+        theme: "light",
+        locale: "en-US",
+      });
+    }
+  }, []);
+
   if (loading || !selectedCourse || selectedCourse.length == 0) {
     return <div>Az oldal betöltés alatt</div>;
   }
@@ -45,6 +55,23 @@ export default function CourseDetailsPage() {
         .catch((error) => {
           console.log(error);
         });
+    }
+  }
+
+  function share(chapter) {
+    if (
+      window.LinkedInShare &&
+      typeof window.LinkedInShare.open === "function"
+    ) {
+      window.LinkedInShare.open({
+        url: window.location.href,
+        title: `Course: ${chapter.courseTitle}`,
+        summary: `I just completed "${chapter.title}"!`,
+        source: "SkillShare Academy",
+        tags: ["learning", "skills"],
+      });
+    } else {
+      console.warn("LinkedInShare widget még nem elérhető");
     }
   }
 
@@ -149,7 +176,7 @@ export default function CourseDetailsPage() {
                 <button
                   className="keret linkedin"
                   onClick={() => {
-                    //share(ch);
+                    share(ch);
                   }}
                 >
                   Share achievement in LinkedIn
