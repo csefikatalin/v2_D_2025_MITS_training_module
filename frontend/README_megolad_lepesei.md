@@ -131,7 +131,7 @@ Külön navigation.css-t készíts!
 
 # 4. Dashboard elkésztése,  Chart.js használata
 
-<a href="03_dashboard.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
+<a href="03_dashboard_chart_integratio.md">Dashboard user adatok lekérdezése és a Chart.js használata</a>
 
 # 5. Courses és a CourseDetailspage
 
@@ -143,7 +143,7 @@ Külön navigation.css-t készíts!
 
 # 8. BookedSessionPage
 
-<a href="06_bookedSessionPage.md">BookedSessionPage, BookedSession komponens és egy saját hook (usePolling) elkészítése a polling megvalósítására.  </a>
+<a href="06_bookedSessionPage_polling.md">BookedSessionPage, BookedSession komponens és egy saját hook (usePolling) elkészítése a polling megvalósítására.  </a>
 
 # 9. LinkedIn beillesztése
 

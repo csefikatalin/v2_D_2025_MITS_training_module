@@ -8,7 +8,7 @@ export const CoursesContext = createContext();
 export function CoursesProvider({ children }) {
   const [coursesList, setCoursesList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [loading, setLoading] = useState(true);
 
   function getCourses() {
@@ -99,6 +99,7 @@ export function CoursesProvider({ children }) {
       value={{
         getCourses,
         filteredList,
+        serverError,
         loading,
         szuro,
         completeChapter,

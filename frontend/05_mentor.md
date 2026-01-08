@@ -6,11 +6,11 @@
 4. A Provider  value-jában add meg a máshol is hazsnálni akart  függvényeket és változókat. 
 5. App.js-ben az ölelgetés. 
 
-6. **MentorsPage** oldalon szükség lesz az AuthContext-re és a useContext-re.
-7. a mentorok és a userek lekérdezését useEffect hokkal valósítjuk meg. A betöltés alatt - loading változó - , csak egy helyörő/drótváz jelenjen meg a Betöltés folyamatban .. szöveggel.  
+6. **MentorsPage** oldalon szükség lesz az AuthContext-re (felhasználói adatok miatt) és a useContext hookra.
+7. A mentorok és a felhasználói adatok lekérdezését useEffect hookkal valósítjuk meg. A betöltés alatt - loading változó - , csak egy helyörő/drótváz jelenjen meg a Betöltés folyamatban .. szöveggel.  
 
-8. Jelenítük meg az oldalon a szükséges értékeket (creditBalane)
-9. a mentorLista-n mapeljünk végig és jelenítsük meg a Mentorokat. 
+8. Jelenítsük meg az oldalon a szükséges felhasználói adatokat (pl. creditBalance).
+9. A mentorLista elemein mapeljünk végig, és jelenítsük meg a Mentor komponenseket.
 
 10. **Mentor** komponens elkészítése, adatokat a propson keresztül kapja. 
 Dátum megjelenítése formázva: 

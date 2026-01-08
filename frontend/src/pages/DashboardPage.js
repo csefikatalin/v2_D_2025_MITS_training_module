@@ -16,13 +16,27 @@ import { Line } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
+  /* diagram komponensek regisztrálása mindig a komponensen kívl kell megtenni! */
+  /* kördiagramhoz */
+  ChartJS.register(ArcElement, Tooltip, Legend);
+  /* vonaldiagramhoz  */
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
 export default function DashboardPage() {
   const { user, loadUser, serverError } = useContext(AuthContext);
   useEffect(() => {
     loadUser();
   }, []);
 
-  if (!user || !user.user || !serverError ) {
+  if (!user  ) {
     console.log(user);
     return (
       <div className=" ">
@@ -59,19 +73,7 @@ export default function DashboardPage() {
     );
   }
 
-  /* diagram komponensek regisztrálása */
-  /* kördiagramhoz */
-  ChartJS.register(ArcElement, Tooltip, Legend);
-  /* vonaldiagramhoz  */
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
+
 
   /* diagram konfigurálása  */
   /* vonaldiagramhoz  */

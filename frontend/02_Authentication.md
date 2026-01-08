@@ -8,13 +8,14 @@ A tokenes autentikáció egy olyan mechanizmus, ahol:
 
 a szerver a token alapján azonosítja a felhasználót, ezért nem kell újra bejelentkezni minden kérésnél
 
-A szerver nem tárol sessiont, ezért ez REST-kompatibilis, **stateless** .
+A szerver nem tárol klasszikus session állapotot, minden kérés önálló, ezért ez REST-kompatibilis, **stateless** .
 
 ### Tehát a folyamat:
 
 1. A felhasználó bejelentkezik/regisztrál. Elküldi a backendnek a bejelentkezési adatokat.
-2. A backend megkeresi a felhasználót az adatbázisban, ellenőrzi a jelszót. Ha nincs felhasználó, vagy hibás a jelző a **401-es Unauthorized** hibaüzenetet kapunk. Ha **helyesek** a bejelentkezési adatok, akkor a **generál egy tokent**, amit visszaküld a frontendnek.
-3. A tokent le kell menteni a LocalStorage-ba. A token azonosítja a felhasználót, id, email, role. Nem titkosított, csak aláírt, ezért érzékeny adat nem kerülhet bele.
+2. A backend megkeresi a felhasználót az adatbázisban, ellenőrzi a jelszót. Ha nincs felhasználó, vagy hibás a jelszó a **401-es Unauthorized** hibaüzenetet kapunk. Ha **helyesek** a bejelentkezési adatok, akkor a **generál egy tokent**, amit visszaküld a frontendnek.
+3. A tokent le kell menteni a LocalStorage-ba. A token tipikusan tartalmazhat felhasználói azonosítót (pl. id), emailt, role-t.
+Ezek nem titkosítottak, csak aláírtak, ezért érzékeny adat nem kerülhet bele.
 4. Minden további (védett végpont) kérésnél a frontend elküldi a tokent a backend felé.
 5. A beckend kiolvassa a tokent, ellenprzi a helyességét. kinyeri a felhasználó adataot, ésha monden Ok, akkor a kérést kiszolgálja. Így minden kérés önállóan tartalmazza az autentikációt.
 
@@ -134,8 +135,8 @@ Illetve használjunk még egy loading statet is, amivel jelezhetjük a felahszn�
 
 ```javascript
 const [token, setToken] = useState(localStorage.getItem("token"));
-const [user, setUser] = useState([]);
-const [loading, setLoading] = useState(true);
+const [user, setUser] = useState(null);
+const [loading, setLoading] = useState(null);
 ```
 
 2 axios post kérés lesz. Az egyik a login a másik a register végpontokra.
@@ -187,7 +188,7 @@ function login(adat) {
       /* beállítjuk a tokent */
       setToken(response.data.token);
       //beállítjuk a usert is.
-      setUser(response.data.user);
+      setUser(response.data);
       /* Átnavigálunk a kezdőlapra */
       window.location.href = "/";
     })
@@ -326,31 +327,32 @@ Az API különböző hibákat adhat vissza működés során. A frontendnek keze
 
 A **serverError** state-ben fogjuk tárolni a hibaüzeneteket.
 
-const [serverError, setServerError] = useState(true);
+const [serverError, setServerError] = useState(null);
 
 1. Hibakezeles függvény az AuthContext-ben
 
 ```javascript
-function hibakezeles(error) {
-  if (error.status === 400) {
-    setServerError("A megadott adatok nem szerepelnek az adatbázisban");
-  } else if (error.status === 401) {
-    setServerError(
-      "A hitelesítési token érvénytelen vagy lejárt. Menj a login oldalra!"
-    );
-    window.location.href = "/login";
-  } else if (error.status === 403) {
-    setServerError("Nincs jogosultsága a kért művelethez!");
-  } else if (error.status === 404) {
-    setServerError("A kért erőforrás nem található!");
-  } else if (error.status === 422) {
-    setServerError("Validációs hiba");
-  } else if (error.status === 500) {
-    setServerError("Szerver hiba történt.");
-  } else {
-    setServerError("Ismeretlen hiba történt.");
+  function hibakezeles(error) {
+     const status = error.response?.status;
+    if (status === 400) {
+      setServerError("A megadott adatok nem szerepelnek az adatbázisban");
+    } else if (error.status === 401) {
+      setServerError(
+        "A hitelesítési token érvénytelen vagy lejárt. Vagy A megadott adatok nem szerepelnek az adatbázisban. Menj a login oldalra!"
+      );
+      //window.location.href = "/login";
+    } else if (status === 403) {
+      setServerError("Nincs jogosultsága a kért művelethez!");
+    } else if (status === 404) {
+      setServerError("A kért erőforrás nem található!");
+    } else if (status === 422) {
+      setServerError("Validációs hiba");
+    } else if (status === 500) {
+      setServerError("Szerver hiba történt.");
+    } else {
+      setServerError("Ismeretlen hiba történt.");
+    }
   }
-}
 ```
 
 Ne felejtsd el a value-ban átadni a serverError változót.

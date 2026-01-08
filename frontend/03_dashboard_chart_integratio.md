@@ -2,8 +2,11 @@
 
 ## User lekérése az AuthContextből
 
-Használni kell a useEffectet, hogy az oldalra való belépéskor le tudjuk hívni a felhasználó adatait. 
+A Dashboard oldalon biztosítjuk, hogy a felhasználó adatai betöltődjenek, ha az oldal közvetlenül frissül vagy újratöltődik. Ehhez useEffect hookot kell használni. 
 Ameddig nincs felhasználói adat, jelenítsük meg csak az oldal wireframe-jét. 
+
+A backend válaszában a felhasználói adatok egy összetett objektumban érkeznek (pl. user, stats, recentActivity).
+Emiatt a contextben tárolt user objektumon belül külön user kulcs található.
 
 ```javascript
   const { user, loadUser } = useContext(AuthContext);
@@ -15,8 +18,6 @@ Ameddig nincs felhasználói adat, jelenítsük meg csak az oldal wireframe-jét
     return <div>Loading dashboard...</div>;
   }
 ```
-
-Nézd meg, hogy az AuthContext-ben a users/me végpont hogy hozza le a user objektumot! Most szükségünk lesz a teljes objektumra, ezért   setUser(response.data. user);  helyett a   setUser(response.data); - t kell használni! 
 
 
 Ezután elhelyezhetjük a user objektumból a megfelelő helyre a megfelelő adatokat. 
@@ -41,11 +42,11 @@ npm install chart.js react-chartjs-2
 ## Diagramok használata
 
 1. Importálni kell a megfelelő komponenseket a chart.js és a react-chartjs-2 csomagokból. A dokumnetáció példáiban pontosan megmutatja, hogy melyeket. <a href="https://github.com/reactchartjs/react-chartjs-2/blob/master/sandboxes/line/default/App.tsx">Vonaldiagram példa a github-on</a>
-2. Regisztrálni kell a felhasznált komponenseket
-3. A diagram konfigurálása (options)
-4. A vízszintes tengely/cimkék feliratainak megadása (labels)
-5. Adatok megadása
-6. Diagramkomponens elhelyezése a megfelelő helyre.
+2. Regisztrálni kell a felhasznált komponenseket - Ezt MINDG a komponensen kvül kell megtenni, különben a regisztráció minden renderelésnél lefut, ami a Chart.js dokumentáció szerint nem szerencsés. 
+3. A diagram konfigurálása (options) - ez már mehet a komponensben
+4. A vízszintes tengely/cimkék feliratainak megadása (labels) - ez már mehet a komponensben
+5. Adatok megadása - ez már mehet a komponensben
+6. Diagramkomponens elhelyezése a megfelelő helyre. - ez már mehet a komponensben
 
 ### 1. Komponensek importálása
 

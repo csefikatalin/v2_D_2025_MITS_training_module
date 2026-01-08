@@ -7,9 +7,9 @@ export const AuthContext = createContext();
 // 2. Provider komponens
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [serverError, setServerError] = useState(true);
+  const [serverError, setServerError] = useState(null);
 
   function login(adat) {
     setLoading(true);
@@ -98,20 +98,21 @@ a fejléchez mindenképp csatolni kell a tokent. Erre szolgál a getAuthHeaders 
   }
 
   function hibakezeles(error) {
-    if (error.status === 400) {
+     const status = error.response?.status;
+    if (status === 400) {
       setServerError("A megadott adatok nem szerepelnek az adatbázisban");
     } else if (error.status === 401) {
       setServerError(
         "A hitelesítési token érvénytelen vagy lejárt. Vagy A megadott adatok nem szerepelnek az adatbázisban. Menj a login oldalra!"
       );
       //window.location.href = "/login";
-    } else if (error.status === 403) {
+    } else if (status === 403) {
       setServerError("Nincs jogosultsága a kért művelethez!");
-    } else if (error.status === 404) {
+    } else if (status === 404) {
       setServerError("A kért erőforrás nem található!");
-    } else if (error.status === 422) {
+    } else if (status === 422) {
       setServerError("Validációs hiba");
-    } else if (error.status === 500) {
+    } else if (status === 500) {
       setServerError("Szerver hiba történt.");
     } else {
       setServerError("Ismeretlen hiba történt.");

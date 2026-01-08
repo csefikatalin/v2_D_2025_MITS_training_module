@@ -19,8 +19,8 @@ export const CoursesContext = createContext();
 export function CoursesProvider({ children }) {
   const [coursesList, setCoursesList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState([]);
-  const [serverError, setServerError] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [serverError, setServerError] = useState(null);
   const [loading, setLoading] = useState(true);
   
   function getCourses() {
@@ -57,7 +57,7 @@ export function CoursesProvider({ children }) {
 
   return (
     <CoursesContext.Provider
-      value={{ getCourses, filteredList, loading, szuro,completeChapter, enrollCourse, selectedCourse,getCourseById }}
+      value={{ getCourses, filteredList, loading, completeChapter, enrollCourse, selectedCourse,getCourseById, serverError }}
     >
       {children}
     </CoursesContext.Provider>
@@ -195,6 +195,7 @@ A useEffect figyeli a szűrő és a keresőmező váltzását, és hívja a cont
 
 A Course komponensben -en  az enroll metódus fut le, ha a gombra rákattintunk, ami meghívja a contextből az erollCourse függvényt. Fontos, hogy az enrollCourse függvény csak akkor fusson le, ha még a felhasználó nincs beiratkozva a kurzusra. 
 Akár be van iratkozva, akár nem az oldal navigáljon el a megfelelő kurzus részletes oldalára. 
+A backend dönti el véglegesen, hogy a beiratkozás sikeres volt-e.
 
 #### 1. Gombkattintás enroll eseménye a Course komponensben
 
@@ -252,6 +253,8 @@ function enrollCourse(courseId){
 ### 6. CourseDetailPage
 
 Egy kurzus részletes oldala. Itt megjelenik a kurzushoz tartozó összes fejezet (chapter). Ezeket meg lehet jelölni befejezettként. 
+
+A példában feltételezzük, hogy az oldalra navigációval érkezünk.
 
 #### 1. A kurzus részletes adatainak megjelenítése
 
@@ -447,7 +450,9 @@ A progress bár elkészítéséhez és az előrehaladás értékeinek kiírásá
   const [sumOfCredits, setSumOfCredits] = useState(0);
 ```
 
-A calculatingProgress függvény kiszámolja ezek értékét. 
+A calculatingProgress függvény kiszámolja az előrehaladáshoz szükséges értékeket.
+Mivel ez a logika nem a megjelenítéshez, hanem az adatok feldolgozásához kapcsolódik, akár ki is emelhetjük a komponensből.
+Ha más komponenseknek is szükségük van erre az információra, akkor célszerű a context-be helyezni.
 
 ```javascript
   /* progress bar */
