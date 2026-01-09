@@ -6,7 +6,7 @@ A tokenes autentikáció egy olyan mechanizmus, ahol:
 - a backend kiállít egy tokent
 - a kliens ezt a tokent minden további kérésnél elküldi
 
-a szerver a token alapján azonosítja a felhasználót, ezért nem kell újra bejelentkezni minden kérésnél
+A szerver a token alapján azonosítja a felhasználót, ezért nem kell újra bejelentkezni minden kérésnél
 
 A szerver nem tárol klasszikus session állapotot, minden kérés önálló, ezért ez REST-kompatibilis, **stateless** .
 

@@ -9,6 +9,7 @@ export function CoursesProvider({ children }) {
   const [coursesList, setCoursesList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [serverError, setServerError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   function getCourses() {
